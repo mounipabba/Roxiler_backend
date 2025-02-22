@@ -285,6 +285,7 @@ app.get('/api/piechart', async (req, res) => {
 });
 
 // Combined API
+// Replace the /api/combined endpoint in server.js with this
 app.get('/api/combined', async (req, res) => {
   const { month } = req.query;
 
@@ -294,9 +295,9 @@ app.get('/api/combined', async (req, res) => {
 
   try {
     const [statistics, barchart, piechart] = await Promise.all([
-      axios.get(`http://localhost:5000/api/statistics?month=${month}`),
-      axios.get(`http://localhost:5000/api/barchart?month=${month}`),
-      axios.get(`http://localhost:5000/api/piechart?month=${month}`)
+      axios.get(`https://roxiler-backend-kpxn.onrender.com/api/statistics?month=${month}`),
+      axios.get(`https://roxiler-backend-kpxn.onrender.com/api/barchart?month=${month}`),
+      axios.get(`https://roxiler-backend-kpxn.onrender.com/api/piechart?month=${month}`)
     ]);
 
     res.send({
@@ -306,7 +307,7 @@ app.get('/api/combined', async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching combined data:', error);
-    res.status(500).send({ error: 'Error fetching combined data' });
+    res.status(500).send({ error: 'Error fetching combined data', details: error.message });
   }
 });
 
